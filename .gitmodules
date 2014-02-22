@@ -1,0 +1,6 @@
+[submodule "fcs"]
+	path = fcs
+	url = https://github.com/lerwys/fcs.git
+[submodule "fcs-client"]
+	path = fcs-client
+	url = https://github.com/lerwys/fcs-client.git
