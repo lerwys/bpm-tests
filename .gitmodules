@@ -4,3 +4,6 @@
 [submodule "fcs-client"]
 	path = fcs-client
 	url = https://github.com/lerwys/fcs-client.git
+[submodule "libbsmp"]
+	path = libbsmp
+	url = https://github.com/brunoseivam/libbsmp.git
