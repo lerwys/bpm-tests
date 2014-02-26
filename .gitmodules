@@ -7,3 +7,6 @@
 [submodule "libbsmp"]
 	path = libbsmp
 	url = https://github.com/brunoseivam/libbsmp.git
+[submodule "bpm-bitstreams"]
+	path = bpm-bitstreams
+	url = https://github.com/lerwys/bpm-bitstreams.git
