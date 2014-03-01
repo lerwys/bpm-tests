@@ -1,12 +1,15 @@
 MAKE = make
 
+MKPATH = mkdir -p
+
 PCIE_DRIVER_SUBDIR=pcie-driver
 LIBBSMP_SUBDIR=libbsmp
 LIBBSMP_SUBDIR_BUILD=$(LIBBSMP_SUBDIR)/build
 FCS_SUBDIR=fcs
 FCS_CLIENT_SUBDIR=fcs-client
 
-.PHONY: pcie-driver libbsmp fcs fcs-client clean install uninstall
+.PHONY: pcie-driver libbsmp fcs fcs-client \
+	clean distclean install uninstall
 
 all: pcie-driver libbsmp fcs fcs-client
 
@@ -14,7 +17,7 @@ pcie-driver:
 	$(MAKE) -C $(PCIE_DRIVER_SUBDIR)
 
 libbsmp:
-	cd $(LIBBSMP_SUBDIR) &&	mkdir build && \
+	cd $(LIBBSMP_SUBDIR) &&	$(MKPATH) build && \
 	cd build && ../configure --enable-silent-rules
 	$(MAKE) -C $(LIBBSMP_SUBDIR_BUILD)
 
@@ -38,3 +41,7 @@ clean:
 	$(MAKE) -C $(LIBBSMP_SUBDIR_BUILD) clean
 	$(MAKE) -C $(FCS_SUBDIR) clean
 	$(MAKE) -C $(FCS_CLIENT_SUBDIR) clean
+
+distclean: clean
+	$(MAKE) -C $(LIBBSMP_SUBDIR_BUILD) distclean
+	$(MAKE) -C $(FCS_SUBDIR) distclean
