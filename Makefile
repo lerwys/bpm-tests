@@ -7,6 +7,8 @@ PCIE_DRIVER_SUBDIR=pcie-driver
 LIBBSMP_SUBDIR=libbsmp
 LIBBSMP_SUBDIR_BUILD=$(LIBBSMP_SUBDIR)/build
 FCS_SUBDIR=fcs
+FCS_DEFAULT_SERVER=fmc_config_130m_4ch_passive_pcie_server
+FCS_SYM_SERVER=fcs_server
 FCS_CLIENT_SUBDIR=fcs-client
 
 .PHONY: pcie-driver libbsmp fcs fcs-client \
@@ -44,6 +46,8 @@ fcs: pcie-driver_install libbsmp_install
 
 fcs_install:
 	$(MAKE) -C $(FCS_SUBDIR) install
+	ln -sf /usr/local/bin/$(FCS_DEFAULT_SERVER) \
+		/usr/local/bin/$(FCS_SYM_SERVER)
 
 fcs_uninstall:
 	$(MAKE) -C $(FCS_SUBDIR) uninstall
