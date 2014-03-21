@@ -4,8 +4,90 @@ Repository containing all the files necessary for testing the BPM setup.
 
 ==============================================================================
 
+Configuring the FPGA:
+
+	-> There are various precompiled bitstreams and Xiinx ACE files for 
+	different firmware/rffe versions
+
+	-> The easiest way is to use the precompile ACE files available.
+	To do this, go to the specific FPGA firmware version with 
+	(suposing the currect directory is this Repository itself):
+
+1 - cd bpm-bitstreams/ml605/dbe_bpm_dsp_fmc130m_4ch
+
+	-> Locate the desired version. Currently, the most up-to-date
+	ones are available through the names: 
+	
+	* slac-rffe_v1 for the RFFE_V1;
+	* slac-rffe_v2 for the RFFE_V2;
+
+	-> Enter the chosen directory with:
+
+2 - cd <firmware_version>
+
+	-> Copy the ACE file (.ace) to the topmost folder in the Compact 
+	Flash card (you can use the graphical interface as well). Note that
+	you must have exactly ONE ACE file in the topmost folder in the
+	Compact Flash.
+
+3 - cp <ace_filename>.ace <compact_flash_location>
+
+	-> Plug the Compact Flash in the appropriate FPGA slot.
+	Remeber to change the DIP switches appropriately. 
+	Check the page 7 of the following link for details on this:
+	<http://www.xilinx.com/support/documentation/boards_and_kits/xtp056.pdf>
+
+	-> Restart the PC
+
+4 - sudo reboot
+
+==============================================================================
+
+Installing all packages all at once:
+	
+	-> Install the dependencies needed for the PCIe driver, FCS,
+	FCS Client
+
+1 - sudo apt-get install binutils build-essential gcc g++ libreadline6-dev \
+	linux-headers-generic linux-headers-$(uname -r) git git-core vim \
+	gitk meld make autoconf automake libmxml-dev libserial-dev \
+	libsqlite3-dev sqlite3 bzip2 libbz2-dev openssh-server \
+	feedgnuplot
+
+	-> Compile everything. We need to use super user
+	access, as some packages depends on the correct
+	installation of others
+
+1 - sudo make
+
+	-> Install everything
+
+2 - sudo make install
+
+==============================================================================
+
+Setting up the FCS Server (method #1 - PREFER methos #2):
+
+	-> The fcs_server can be called directly with:
+	
+1 - sudo fcs_server-p ml605
+
+==============================================================================
+
+Setting up the FCS Server (method #2 - PREFERED!):
+
+	-> Or through an Ubuntu service, if the script
+	is in the right place with:
+
+1 - sudo stop fcs-server
+2 - sudo start fcs-server
+
+==============================================================================
+
 Installing the PCIe Driver:
 
+	-> NOTE: This is probably already done if you followed the section
+	"Installing all packages all at once:"
 
 	-> Install the dependencies needed for the PCIe driver.
         On a Ubuntu system run the following command:
@@ -178,4 +260,3 @@ Running the PCIe self-test:
 
     -> This is not actually an error or a failure, it is just trying to
         allocate more memory than the kernel has available.
-==============================================================================
